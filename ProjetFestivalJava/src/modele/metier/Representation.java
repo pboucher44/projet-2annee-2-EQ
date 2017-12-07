@@ -14,7 +14,7 @@ public class Representation {
    
     private int id;
     private String date;
-    private int Lieu;
+    private String Lieu;
     private String Groupe;
     private String heureDebut;
     private String heureFin;
@@ -22,7 +22,7 @@ public class Representation {
     
     
     //constructeur
-    public Representation(int id,String date,int Lieu,String Groupe,String heureDebut,String heureFin,int placesDispo){
+    public Representation(int id,String date,String Lieu,String Groupe,String heureDebut,String heureFin,int placesDispo){
     
     this.id=id;
     this.date=date;
@@ -53,7 +53,7 @@ public class Representation {
         return date;
     }
 
-    public int getLieu() {
+    public String getLieu() {
         return Lieu;
     }
 
@@ -87,7 +87,7 @@ public class Representation {
         this.date = date;
     }
 
-    public void setLieu(int Lieu) {
+    public void setLieu(String Lieu) {
         this.Lieu = Lieu;
     }
 

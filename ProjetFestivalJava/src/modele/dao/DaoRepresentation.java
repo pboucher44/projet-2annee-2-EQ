@@ -28,13 +28,13 @@ public class DaoRepresentation {
         PreparedStatement pstmt;
         Jdbc jdbc = Jdbc.getInstance();
         // préparer la requête
-        String requete = "SELECT * FROM Representation";
+        String requete = "SELECT Representation.id AS id, `date`, Lieu.nom AS Lieu, Groupe.nom AS Groupe, `heuredebut`, `heurefin`, `places_dispo` FROM `Representation` INNER JOIN Groupe ON Groupe.id = Representation.Groupe INNER JOIN Lieu ON Lieu.id = Representation.Lieu";
         pstmt = jdbc.getConnexion().prepareStatement(requete);
         rs = pstmt.executeQuery();
         while (rs.next()) {
             int id = rs.getInt("id");
             String date = rs.getString("date");
-            int Lieu = rs.getInt("Lieu");
+            String Lieu = rs.getString("Lieu");
             String Groupe = rs.getString("Groupe");
             String heureDebut = rs.getString("heureDebut");
             String heureFin = rs.getString("heureFin");

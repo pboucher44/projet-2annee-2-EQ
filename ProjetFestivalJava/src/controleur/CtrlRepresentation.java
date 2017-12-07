@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import vue.VueRepresentation;
 
 
@@ -44,12 +46,14 @@ public class CtrlRepresentation implements WindowListener{
         } catch (SQLException ex) {
             Logger.getLogger(CtrlRepresentation.class.getName()).log(Level.SEVERE, null, ex);
         }
+        JTable jtable1 = this.reserv.getjTable1();
+        DefaultTableModel model = (DefaultTableModel) jtable1.getModel();
         
         for (Representation uneRepresentation : lesRepresentations){
-            JComboBox<String> jcombo = this.reserv.getjComboBox1();
-            jcombo.addItem(uneRepresentation.getGroupe());
-            this.reserv.setjComboBox1(jcombo);
+            model.addRow(new Object[]{uneRepresentation.getGroupe()});
         }
+        
+        this.reserv.setjTable1(jtable1);
     }
     
     
