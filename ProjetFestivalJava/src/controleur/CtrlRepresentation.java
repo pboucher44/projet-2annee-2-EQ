@@ -7,36 +7,39 @@
 
 package controleur;
 
-import java.awt.List;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import modele.dao.DaoRepresentation;
 import modele.metier.Representation;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import vue.VueRepresentation;
 
 
 /**
  *
  * @author pboucher
  */
-public class CtrlRepresentation implements WindowListener{
+public class CtrlRepresentation implements WindowListener, MouseListener{
 
     private vue.VueRepresentation reserv;
     private ArrayList<Representation> lesRepresentations;
     
+    
+    
     public CtrlRepresentation(vue.VueRepresentation vue){
         this.reserv=vue;
         this.reserv.addWindowListener(this);
+        this.reserv.getjTable1().addMouseListener(this);
         afficheLesReserv();
     }
     
@@ -59,37 +62,84 @@ public class CtrlRepresentation implements WindowListener{
     
     @Override
     public void windowOpened(WindowEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void windowClosing(WindowEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void windowClosed(WindowEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.exit(0);
     }
 
     @Override
     public void windowIconified(WindowEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void windowDeiconified(WindowEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void windowActivated(WindowEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void windowDeactivated(WindowEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int row = reserv.getjTable1().getSelectedRow();
+        String groupeChoisis = (String) reserv.getjTable1().getValueAt(row, 0);
+        String groupeChoisisRes = null;
+        try {
+            groupeChoisisRes = DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).toString();
+        } catch (SQLException ex) {
+            Logger.getLogger(CtrlRepresentation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            Date currentTime = new Date();
+            String dateDebut = DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getDate();
+            String heureDebut = DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getHeureDebut();
+            int annee = Integer.parseInt(dateDebut.substring(0,4));
+            int mois = Integer.parseInt(dateDebut.substring(5,7));
+            int jour = Integer.parseInt(dateDebut.substring(8,10));
+            int heure = Integer.parseInt(heureDebut.substring(0,2));
+            int minutes = Integer.parseInt(heureDebut.substring(3,5));
+            
+            Date dateConcert = new Date(annee-1900, mois, jour,heure,minutes);
+            System.out.println(annee + " " +mois + " " +jour);
+            System.out.println(currentTime);
+            System.out.println(dateConcert);
+            if(DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getPlacesDispo()==0 && dateConcert.before(currentTime)){
+                reserv.getjLabel3().setText("Le concert est passé");
+            }else if(dateConcert.before(currentTime)){
+                reserv.getjLabel3().setText("Le concert est passé");
+            }else if(DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getPlacesDispo()==0){
+                reserv.getjLabel3().setText("Il n'y a plus de places");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CtrlRepresentation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        reserv.getjLabel2().setText(groupeChoisisRes);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
     }
 
     

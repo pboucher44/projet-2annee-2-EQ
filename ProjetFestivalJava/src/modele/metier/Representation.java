@@ -37,10 +37,8 @@ public class Representation {
     //toString
     @Override
     public String toString() {
-        return "Representation{ date=" + date + ", Lieu=" + Lieu + ", Groupe=" + Groupe + ", heureDebut=" + heureDebut + ", heureFin=" + heureFin + ", placesDispo=" + placesDispo + '}';
+        return "<html>Groupe=" + Groupe +"<br> date=" + date + "<br> Lieu=" + Lieu + "<br> heureDebut=" + heureDebut + "<br> heureFin=" + heureFin + "<br> placesDispo=" + placesDispo + "</html>";
     }
-    
-    
     
     
     //accesseur
