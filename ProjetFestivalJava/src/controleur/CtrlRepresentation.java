@@ -15,6 +15,11 @@ import modele.dao.DaoRepresentation;
 import modele.metier.Representation;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import vue.VueRepresentation;
 
 
@@ -25,7 +30,7 @@ import vue.VueRepresentation;
 public class CtrlRepresentation implements WindowListener{
 
     private vue.VueRepresentation reserv;
-    private List lesRepresentations;
+    private ArrayList<Representation> lesRepresentations;
     
     public CtrlRepresentation(vue.VueRepresentation vue){
         this.reserv=vue;
@@ -34,9 +39,16 @@ public class CtrlRepresentation implements WindowListener{
     }
     
     private void afficheLesReserv() {
-        lesRepresentations=DaoRepresentation.selectAll();
-        for (Reservation uneRepresentation : lesRepresentations){
-            this.reserv.setjComboBox1(uneRepresentation.getLibelle);
+        try {
+            lesRepresentations= (ArrayList<Representation>) DaoRepresentation.selectAll();
+        } catch (SQLException ex) {
+            Logger.getLogger(CtrlRepresentation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        for (Representation uneRepresentation : lesRepresentations){
+            JComboBox<String> jcombo = this.reserv.getjComboBox1();
+            jcombo.addItem(uneRepresentation.getGroupe());
+            this.reserv.setjComboBox1(jcombo);
         }
     }
     
