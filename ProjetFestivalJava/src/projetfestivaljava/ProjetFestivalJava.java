@@ -15,7 +15,10 @@ public class ProjetFestivalJava {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        vue.VueRepresentation uneVue = new vue.VueRepresentation();
+        controleur.CtrlRepresentation unControleur = new controleur.CtrlRepresentation(uneVue);
+        // afficher la vue
+        uneVue.setVisible(true);
     }
     
 }
