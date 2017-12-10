@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import vue.VueRepresentation;
 
 
 /**
@@ -33,13 +34,14 @@ public class CtrlRepresentation implements WindowListener, MouseListener{
 
     private vue.VueRepresentation reserv;
     private ArrayList<Representation> lesRepresentations;
+    private CtrlPrincipal ctrlPrincipal;
     
     
-    
-    public CtrlRepresentation(vue.VueRepresentation vue){
+    public CtrlRepresentation(vue.VueRepresentation vue, CtrlPrincipal ctrl){
         this.reserv=vue;
         this.reserv.addWindowListener(this);
         this.reserv.getjTable1().addMouseListener(this);
+        this.ctrlPrincipal = ctrl;
         afficheLesReserv();
     }
     
@@ -66,11 +68,12 @@ public class CtrlRepresentation implements WindowListener, MouseListener{
 
     @Override
     public void windowClosing(WindowEvent e) {
+        ctrlPrincipal.quitterApplication();
     }
 
     @Override
     public void windowClosed(WindowEvent e) {
-        System.exit(0);
+        
     }
 
     @Override
@@ -141,6 +144,12 @@ public class CtrlRepresentation implements WindowListener, MouseListener{
     @Override
     public void mouseExited(MouseEvent e) {
     }
+
+    public VueRepresentation getReserv() {
+        return reserv;
+    }
+
+    
 
     
 }

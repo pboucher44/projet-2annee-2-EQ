@@ -5,10 +5,12 @@
  */
 package projetfestivaljava;
 
+import controleur.CtrlPrincipal;
 import controleur.CtrlRepresentation;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import jdbc.Jdbc;
+import vue.VueRepresentation;
 
 /**
  *
@@ -23,11 +25,11 @@ public class ProjetFestivalJava {
         Jdbc.creer("com.mysql.jdbc.Driver", "jdbc:mysql:", "//localhost/", "festival", "root", "joliverie");
         try {
             Jdbc.getInstance().connecter();
-            vue.VueRepresentation uneVue = new vue.VueRepresentation();
-            controleur.CtrlRepresentation unControleur = new controleur.CtrlRepresentation(uneVue);
-            // afficher la vue
-            uneVue.setVisible(true);
-            
+            CtrlPrincipal leControleurPrincipal = new CtrlPrincipal();
+            VueRepresentation laVueLesRepresentation = new VueRepresentation();
+            CtrlRepresentation leControleurLesRepresentation = new CtrlRepresentation(laVueLesRepresentation, leControleurPrincipal);
+            leControleurPrincipal.setCtrlRepresentation(leControleurLesRepresentation);
+            laVueLesRepresentation.setVisible(true);
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Main - classe JDBC non trouvée");
         } catch (SQLException ex) {

@@ -66,19 +66,6 @@ public class DaoRepresentation {
         }
         return uneRepresentation;
     }
-    
-    
-        public static void reserve(int id, int nbPers) throws SQLException {
-        int nb;
-        Jdbc jdbc = Jdbc.getInstance();
-        String requete;
-        ResultSet rs;
-        PreparedStatement pstmt;
-        requete = "UPDATE `Representation` SET `places_dispo`=places_dispo-"+ nbPers +" WHERE id="+ id + ";";
-        pstmt = jdbc.getConnexion().prepareStatement(requete);
-        nb = pstmt.executeUpdate();
-    }
-        
       
     
 }
