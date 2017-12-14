@@ -30,7 +30,7 @@ import vue.VueRepresentation;
 
 /**
  *
- * @author pboucher
+ * @author pboucher 
  */
 public class CtrlRepresentation implements WindowListener, MouseListener, ActionListener{
 
