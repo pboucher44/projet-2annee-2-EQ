@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import jdbc.Jdbc;
+import modele.metier.Groupe;
+import modele.metier.Lieu;
 
 /**
  *
@@ -28,44 +30,47 @@ public class DaoRepresentation {
         PreparedStatement pstmt;
         Jdbc jdbc = Jdbc.getInstance();
         // préparer la requête
-        String requete = "SELECT Representation.id AS id, `date`, Lieu.nom AS Lieu, Groupe.nom AS Groupe, `heuredebut`, `heurefin`, `places_dispo` FROM `Representation` INNER JOIN Groupe ON Groupe.id = Representation.Groupe INNER JOIN Lieu ON Lieu.id = Representation.Lieu";
+        String requete = "SELECT id, `date`, Lieu, Groupe, `heuredebut`, `heurefin`, `places_dispo` FROM `Representation`";
         pstmt = jdbc.getConnexion().prepareStatement(requete);
         rs = pstmt.executeQuery();
         while (rs.next()) {
             int id = rs.getInt("id");
             String date = rs.getString("date");
             String Lieu = rs.getString("Lieu");
+            Lieu VraiLieu = DaoLieu.selectLieuById(Lieu);
             String Groupe = rs.getString("Groupe");
+            Groupe VraiGroupe = DaoGroupe.selectGroupeById(Groupe);
             String heureDebut = rs.getString("heureDebut");
             String heureFin = rs.getString("heureFin");
             int placesDispo = rs.getInt("places_dispo");
-            uneRepresentation = new Representation(id, date, Lieu,Groupe,heureDebut,heureFin,placesDispo);
+            uneRepresentation = new Representation(id, date, VraiLieu,VraiGroupe,heureDebut,heureFin,placesDispo);
             lesRepresentation.add(uneRepresentation);
         }
         return lesRepresentation;
     }
     
-    public static Representation selectRepresentationParGroupe(String groupeChoix) throws SQLException {
+    public static Representation selectRepresentationParGroupe(String idGroupe) throws SQLException {
         Representation uneRepresentation = null;
         ResultSet rs;
         PreparedStatement pstmt;
         Jdbc jdbc = Jdbc.getInstance();
         // préparer la requête
-        String requete = "SELECT Representation.id AS id, `date`, Lieu.nom AS Lieu, Groupe.nom AS Groupe, `heuredebut`, `heurefin`, `places_dispo` FROM `Representation` INNER JOIN Groupe ON Groupe.id = Representation.Groupe INNER JOIN Lieu ON Lieu.id = Representation.Lieu WHERE Groupe.nom = \""+groupeChoix+"\";";
+        String requete = "SELECT id, `date`, Lieu, Groupe, `heuredebut`, `heurefin`, `places_dispo` FROM `Representation` WHERE Groupe=\""+idGroupe+"\"";
         pstmt = jdbc.getConnexion().prepareStatement(requete);
         rs = pstmt.executeQuery();
         if (rs.next()) {
             int id = rs.getInt("id");
             String date = rs.getString("date");
             String Lieu = rs.getString("Lieu");
+            Lieu VraiLieu = DaoLieu.selectLieuById(Lieu);
             String Groupe = rs.getString("Groupe");
+            Groupe VraiGroupe = DaoGroupe.selectGroupeById(Groupe);
             String heureDebut = rs.getString("heureDebut");
             String heureFin = rs.getString("heureFin");
             int placesDispo = rs.getInt("places_dispo");
-            uneRepresentation = new Representation(id, date, Lieu,Groupe,heureDebut,heureFin,placesDispo);
+            uneRepresentation = new Representation(id, date, VraiLieu,VraiGroupe,heureDebut,heureFin,placesDispo);
         }
         return uneRepresentation;
     }
-      
     
 }

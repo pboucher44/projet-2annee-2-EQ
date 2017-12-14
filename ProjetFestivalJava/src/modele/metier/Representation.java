@@ -14,15 +14,15 @@ public class Representation {
    
     private int id;
     private String date;
-    private String Lieu;
-    private String Groupe;
+    private Lieu Lieu;
+    private Groupe Groupe;
     private String heureDebut;
     private String heureFin;
     private int placesDispo;
     
     
     //constructeur
-    public Representation(int id,String date,String Lieu,String Groupe,String heureDebut,String heureFin,int placesDispo){
+    public Representation(int id,String date,Lieu Lieu,Groupe Groupe,String heureDebut,String heureFin,int placesDispo){
     
     this.id=id;
     this.date=date;
@@ -37,7 +37,7 @@ public class Representation {
     //toString
     @Override
     public String toString() {
-        return "<html>Groupe=" + Groupe +"<br> date=" + date + "<br> Lieu=" + Lieu + "<br> heureDebut=" + heureDebut + "<br> heureFin=" + heureFin + "<br> placesDispo=" + placesDispo + "</html>";
+        return "<html>Groupe=" + Groupe.getNom()+"<br> date=" + date + "<br> Lieu=" + Lieu.getNom()+ "<br> heureDebut=" + heureDebut + "<br> heureFin=" + heureFin + "<br> placesDispo=" + placesDispo + "</html>";
     }
     
     
@@ -51,11 +51,11 @@ public class Representation {
         return date;
     }
 
-    public String getLieu() {
+    public modele.metier.Lieu getLieu() {
         return Lieu;
     }
 
-    public String getGroupe() {
+    public modele.metier.Groupe getGroupe() {
         return Groupe;
     }
 
@@ -85,11 +85,11 @@ public class Representation {
         this.date = date;
     }
 
-    public void setLieu(String Lieu) {
+    public void setLieu(Lieu Lieu) {
         this.Lieu = Lieu;
     }
 
-    public void setGroupe(String Groupe) {
+    public void setGroupe(Groupe Groupe) {
         this.Groupe = Groupe;
     }
 

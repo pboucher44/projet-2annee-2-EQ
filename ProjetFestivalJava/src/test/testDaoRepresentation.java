@@ -11,7 +11,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jdbc.Jdbc;
+import modele.dao.DaoGroupe;
+import modele.dao.DaoLieu;
 import modele.dao.DaoRepresentation;
+import modele.metier.Groupe;
+import modele.metier.Lieu;
 import modele.metier.Representation;
 
 /**
@@ -29,7 +33,20 @@ public class testDaoRepresentation {
             Logger.getLogger(testDaoRepresentation.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        try {
+            Groupe gr = DaoGroupe.selectGroupeById("g001");
+            System.out.println(gr.toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(testDaoRepresentation.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+        try {
+            Lieu li = DaoLieu.selectLieuById("1");
+            System.out.println(li.toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(testDaoRepresentation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
         System.out.println("***************************************************");
         System.out.println("test 1 selectAll():");
         System.out.println("***************************************************");
@@ -42,18 +59,6 @@ public class testDaoRepresentation {
             System.out.println("test 1 réussi");
         } catch (SQLException ex) {
             System.out.println("test 1 échoué");
-        }
-        System.out.println("***************************************************");
-        System.out.println("test 2 selectRepresentationParGroupe():");
-        System.out.println("***************************************************");
-        try {
-            Representation RecupParGroupe;
-            RecupParGroupe = DaoRepresentation.selectRepresentationParGroupe("Boxty");
-            System.out.println(RecupParGroupe.toString());
-            System.out.println("test 2 réussi");
-        } catch (SQLException ex) {
-            System.out.println("test 2 échoué");
-        }
-        
+        }        
     }
 }

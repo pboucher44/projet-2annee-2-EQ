@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
  */
 public class CtrlPrincipal {
 
-
     private CtrlRepresentation ctrlLesRepresentations;
     private CtrlMenu ctrlMenu;
     private CtrlReservation ctrlReservation;
@@ -59,7 +58,4 @@ public class CtrlPrincipal {
     public void setCtrlReservation(CtrlReservation ctrlReservation) {
         this.ctrlReservation = ctrlReservation;
     }
-    
-    
-    
 }

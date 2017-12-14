@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jdbc.Jdbc;
+import modele.dao.DaoGroupe;
+import modele.dao.DaoLieu;
 import modele.dao.DaoRepresentation;
 import modele.metier.Representation;
 
@@ -33,7 +35,12 @@ public class testRepresentation {
         System.out.println("***************************************************");
         System.out.println("test création d'un objet de type representation:");
         System.out.println("***************************************************");
-        Representation laRepresentation = new Representation(1,"2017-07-11","Salle du panier fleuri","Ruhunu Ballet du village de Kosgoda","21:45:00","23:00:00",500);
+        Representation laRepresentation = null;
+        try {
+            laRepresentation = new Representation(1,"2017-07-11",DaoLieu.selectLieuById("1"),DaoGroupe.selectGroupeById("g001"),"21:45:00","23:00:00",500);
+        } catch (SQLException ex) {
+            Logger.getLogger(testRepresentation.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println(laRepresentation.toString());
         System.out.println("test réussi");
     }

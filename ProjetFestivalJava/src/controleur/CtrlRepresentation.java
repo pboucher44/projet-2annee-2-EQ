@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import modele.dao.DaoGroupe;
 import vue.VueRepresentation;
 
 
@@ -58,7 +59,7 @@ public class CtrlRepresentation implements WindowListener, MouseListener, Action
         DefaultTableModel model = (DefaultTableModel) jtable1.getModel();
         
         for (Representation uneRepresentation : lesRepresentations){
-            model.addRow(new Object[]{uneRepresentation.getGroupe()});
+            model.addRow(new Object[]{uneRepresentation.getGroupe().getNom()});
         }
         
         this.reserv.setjTable1(jtable1);
@@ -100,15 +101,21 @@ public class CtrlRepresentation implements WindowListener, MouseListener, Action
         int row = reserv.getjTable1().getSelectedRow();
         String groupeChoisis = (String) reserv.getjTable1().getValueAt(row, 0);
         String groupeChoisisRes = null;
+        String idGroupeChoisis=null;
         try {
-            groupeChoisisRes = DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).toString();
+            idGroupeChoisis=DaoGroupe.selectIdGroupeByNom(groupeChoisis);
+        } catch (SQLException ex) {
+            Logger.getLogger(CtrlRepresentation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            groupeChoisisRes=DaoRepresentation.selectRepresentationParGroupe(idGroupeChoisis).toString();
         } catch (SQLException ex) {
             Logger.getLogger(CtrlRepresentation.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             Date currentTime = new Date();
-            String dateDebut = DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getDate();
-            String heureDebut = DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getHeureDebut();
+            String dateDebut = DaoRepresentation.selectRepresentationParGroupe(idGroupeChoisis).getDate();
+            String heureDebut = DaoRepresentation.selectRepresentationParGroupe(idGroupeChoisis).getHeureDebut();
             int annee = Integer.parseInt(dateDebut.substring(0,4));
             int mois = Integer.parseInt(dateDebut.substring(5,7));
             int jour = Integer.parseInt(dateDebut.substring(8,10));
@@ -119,11 +126,11 @@ public class CtrlRepresentation implements WindowListener, MouseListener, Action
             System.out.println(annee + " " +mois + " " +jour);
             System.out.println(currentTime);
             System.out.println(dateConcert);
-            if(DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getPlacesDispo()==0 && dateConcert.before(currentTime)){
+            if(DaoRepresentation.selectRepresentationParGroupe(idGroupeChoisis).getPlacesDispo()==0 && dateConcert.before(currentTime)){
                 reserv.getjLabel3().setText("Le concert est passé");
             }else if(dateConcert.before(currentTime)){
                 reserv.getjLabel3().setText("Le concert est passé");
-            }else if(DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getPlacesDispo()==0){
+            }else if(DaoRepresentation.selectRepresentationParGroupe(idGroupeChoisis).getPlacesDispo()==0){
                 reserv.getjLabel3().setText("Il n'y a plus de places");
             }
         } catch (SQLException ex) {
