@@ -51,7 +51,7 @@ public class DaoRepresentation {
         PreparedStatement pstmt;
         Jdbc jdbc = Jdbc.getInstance();
         // préparer la requête
-        String requete = "SELECT Representation.id AS id, `date`, Lieu.nom AS Lieu, Groupe.nom AS Groupe, `heuredebut`, `heurefin`, `places_dispo` FROM `Representation` INNER JOIN Groupe ON Groupe.id = Representation.Groupe INNER JOIN Lieu ON Lieu.id = Representation.Lieu WHERE Groupe.nom = '"+groupeChoix+"';";
+        String requete = "SELECT Representation.id AS id, `date`, Lieu.nom AS Lieu, Groupe.nom AS Groupe, `heuredebut`, `heurefin`, `places_dispo` FROM `Representation` INNER JOIN Groupe ON Groupe.id = Representation.Groupe INNER JOIN Lieu ON Lieu.id = Representation.Lieu WHERE Groupe.nom = \""+groupeChoix+"\";";
         pstmt = jdbc.getConnexion().prepareStatement(requete);
         rs = pstmt.executeQuery();
         if (rs.next()) {

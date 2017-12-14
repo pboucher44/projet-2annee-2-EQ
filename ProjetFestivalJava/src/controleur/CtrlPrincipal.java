@@ -12,11 +12,26 @@ import javax.swing.JOptionPane;
 public class CtrlPrincipal {
 
 
-
     private CtrlRepresentation ctrlLesRepresentations;
+    private CtrlMenu ctrlMenu;
+    private CtrlReservation ctrlReservation;
+    
+    public void afficherLeMenu() {
+        this.ctrlLesRepresentations.getReserv().setVisible(false);
+        this.ctrlReservation.getReserv().setVisible(false);
+        this.ctrlMenu.getMenu().setVisible(true);
+    }
     
     public void afficherLesRepresentations() {
         this.ctrlLesRepresentations.getReserv().setVisible(true);
+        this.ctrlReservation.getReserv().setVisible(false);
+        this.ctrlMenu.getMenu().setVisible(false);
+    }
+    
+    public void afficherLesReservation() {
+        this.ctrlLesRepresentations.getReserv().setVisible(false);
+        this.ctrlReservation.getReserv().setVisible(true);
+        this.ctrlMenu.getMenu().setVisible(false);
     }
     
      public void quitterApplication()
@@ -36,5 +51,15 @@ public class CtrlPrincipal {
     public void setCtrlRepresentation(CtrlRepresentation ctrlLesRepresentations) {
         this.ctrlLesRepresentations = ctrlLesRepresentations;
     }
+    
+    public void setCtrlMenu(CtrlMenu ctrlMenu) {
+        this.ctrlMenu = ctrlMenu;
+    }
+
+    public void setCtrlReservation(CtrlReservation ctrlReservation) {
+        this.ctrlReservation = ctrlReservation;
+    }
+    
+    
     
 }

@@ -7,6 +7,8 @@
 
 package controleur;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import modele.dao.DaoRepresentation;
@@ -30,7 +32,7 @@ import vue.VueRepresentation;
  *
  * @author pboucher
  */
-public class CtrlRepresentation implements WindowListener, MouseListener{
+public class CtrlRepresentation implements WindowListener, MouseListener, ActionListener{
 
     private vue.VueRepresentation reserv;
     private ArrayList<Representation> lesRepresentations;
@@ -41,6 +43,7 @@ public class CtrlRepresentation implements WindowListener, MouseListener{
         this.reserv=vue;
         this.reserv.addWindowListener(this);
         this.reserv.getjTable1().addMouseListener(this);
+        this.reserv.getjButton1().addActionListener(this);
         this.ctrlPrincipal = ctrl;
         afficheLesReserv();
     }
@@ -147,6 +150,13 @@ public class CtrlRepresentation implements WindowListener, MouseListener{
 
     public VueRepresentation getReserv() {
         return reserv;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource().equals(reserv.getjButton1())){
+            ctrlPrincipal.afficherLeMenu();
+        }
     }
 
     
