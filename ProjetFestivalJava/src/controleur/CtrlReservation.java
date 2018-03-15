@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import modele.dao.DaoGroupe;
@@ -41,6 +42,7 @@ public class CtrlReservation implements WindowListener,MouseListener,ActionListe
         this.reserv.addWindowListener(this);
         this.reserv.getjTable1().addMouseListener(this);
         this.reserv.getjButton2().addActionListener(this);
+        this.reserv.getjButton1().addActionListener(this);
         this.ctrlPrincipal = ctrl;
         afficheLesReserv();
     }
@@ -128,10 +130,16 @@ public class CtrlReservation implements WindowListener,MouseListener,ActionListe
             System.out.println(dateConcert);
             if(DaoRepresentation.selectRepresentationParGroupe(idGroupeChoisis).getPlacesDispo()==0 && dateConcert.before(currentTime)){
                 reserv.getjLabel3().setText("Le concert est passé");
+                this.reserv.getjButton1().setEnabled(false);
             }else if(dateConcert.before(currentTime)){
                 reserv.getjLabel3().setText("Le concert est passé");
+                this.reserv.getjButton1().setEnabled(false);
             }else if(DaoRepresentation.selectRepresentationParGroupe(idGroupeChoisis).getPlacesDispo()==0){
                 reserv.getjLabel3().setText("Il n'y a plus de places");
+                this.reserv.getjButton1().setEnabled(false);
+            }else{
+                reserv.getjLabel3().setText("");
+                this.reserv.getjButton1().setEnabled(true);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CtrlRepresentation.class.getName()).log(Level.SEVERE, null, ex);
@@ -159,6 +167,19 @@ public class CtrlReservation implements WindowListener,MouseListener,ActionListe
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(this.reserv.getjButton2())){
             ctrlPrincipal.afficherLeMenu();
+        }else if(e.getSource().equals(this.reserv.getjButton1())){
+            int row = reserv.getjTable1().getSelectedRow();
+            String groupeChoisis = (String) reserv.getjTable1().getValueAt(row, 0);
+                
+            String nbPlacesAEnlever = this.reserv.getjTextField2().getText();
+
+            try {
+                    DaoRepresentation.vendrePlace(Integer.parseInt(nbPlacesAEnlever) ,DaoGroupe.selectIdGroupeByNom(groupeChoisis));
+                    JOptionPane.showMessageDialog(null, "Les places sont bien réservées !");
+            } catch (SQLException ex) {
+                Logger.getLogger(CtrlReservation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
     }
 }

@@ -132,6 +132,8 @@ public class CtrlRepresentation implements WindowListener, MouseListener, Action
                 reserv.getjLabel3().setText("Le concert est passé");
             }else if(DaoRepresentation.selectRepresentationParGroupe(idGroupeChoisis).getPlacesDispo()==0){
                 reserv.getjLabel3().setText("Il n'y a plus de places");
+            }else{
+                reserv.getjLabel3().setText("");
             }
         } catch (SQLException ex) {
             Logger.getLogger(CtrlRepresentation.class.getName()).log(Level.SEVERE, null, ex);

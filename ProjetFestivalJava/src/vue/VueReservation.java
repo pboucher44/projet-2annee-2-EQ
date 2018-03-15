@@ -8,6 +8,7 @@ package vue;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -143,9 +144,17 @@ public class VueReservation extends javax.swing.JFrame {
     public JTable getjTable1() {
         return jTable1;
     }
-
+    
+    public JButton getjButton1() {
+        return jButton1;    
+    }
+    
     public JButton getjButton2() {
         return jButton2;
+    }
+
+    public JTextField getjTextField2() {
+        return jTextField2;
     }
     
     public void setjTable1(JTable jTable1) {
@@ -216,4 +225,6 @@ public class VueReservation extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+
+    
 }

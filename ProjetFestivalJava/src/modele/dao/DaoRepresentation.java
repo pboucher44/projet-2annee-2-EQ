@@ -73,4 +73,14 @@ public class DaoRepresentation {
         return uneRepresentation;
     }
     
+    public static void vendrePlace(int nombreVendu, String id) throws SQLException {
+        PreparedStatement pstmt;
+        Jdbc jdbc = Jdbc.getInstance();
+        // préparer la requête
+        String requete = "UPDATE Representation SET places_dispo = places_dispo -"+ nombreVendu +" where groupe='" + id + "'";
+        pstmt = jdbc.getConnexion().prepareStatement(requete);
+        pstmt.executeUpdate();
+    }
+    
+    
 }

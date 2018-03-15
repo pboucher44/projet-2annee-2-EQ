@@ -32,21 +32,7 @@ public class testDaoRepresentation {
         } catch (SQLException ex) {
             Logger.getLogger(testDaoRepresentation.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        try {
-            Groupe gr = DaoGroupe.selectGroupeById("g001");
-            System.out.println(gr.toString());
-        } catch (SQLException ex) {
-            Logger.getLogger(testDaoRepresentation.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        try {
-            Lieu li = DaoLieu.selectLieuById("1");
-            System.out.println(li.toString());
-        } catch (SQLException ex) {
-            Logger.getLogger(testDaoRepresentation.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                
+                        
         System.out.println("***************************************************");
         System.out.println("test 1 selectAll():");
         System.out.println("***************************************************");
