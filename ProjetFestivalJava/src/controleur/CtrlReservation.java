@@ -125,9 +125,6 @@ public class CtrlReservation implements WindowListener,MouseListener,ActionListe
             int minutes = Integer.parseInt(heureDebut.substring(3,5));
             
             Date dateConcert = new Date(annee-1900, mois, jour,heure,minutes);
-            System.out.println(annee + " " +mois + " " +jour);
-            System.out.println(currentTime);
-            System.out.println(dateConcert);
             if(DaoRepresentation.selectRepresentationParGroupe(idGroupeChoisis).getPlacesDispo()==0 && dateConcert.before(currentTime)){
                 reserv.getjLabel3().setText("Le concert est passé");
                 this.reserv.getjButton1().setEnabled(false);
@@ -172,14 +169,28 @@ public class CtrlReservation implements WindowListener,MouseListener,ActionListe
             String groupeChoisis = (String) reserv.getjTable1().getValueAt(row, 0);
                 
             String nbPlacesAEnlever = this.reserv.getjTextField2().getText();
-
+            int nbPlacesDisp=0;
+            String idGroupeChoisis = null;
             try {
-                    DaoRepresentation.vendrePlace(Integer.parseInt(nbPlacesAEnlever) ,DaoGroupe.selectIdGroupeByNom(groupeChoisis));
-                    JOptionPane.showMessageDialog(null, "Les places sont bien réservées !");
+                idGroupeChoisis = DaoGroupe.selectIdGroupeByNom(groupeChoisis);
             } catch (SQLException ex) {
                 Logger.getLogger(CtrlReservation.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+            try {
+                nbPlacesDisp=DaoRepresentation.selectRepresentationParGroupe(idGroupeChoisis).getPlacesDispo();
+            } catch (SQLException ex) {
+                Logger.getLogger(CtrlReservation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if(nbPlacesDisp-Integer.parseInt(nbPlacesAEnlever)>=0){
+                try {
+                        DaoRepresentation.vendrePlace(Integer.parseInt(nbPlacesAEnlever) ,DaoGroupe.selectIdGroupeByNom(groupeChoisis));
+                        JOptionPane.showMessageDialog(null, "Les places sont bien réservées !");
+                } catch (SQLException ex) {
+                    Logger.getLogger(CtrlReservation.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Pas assez de places sont disponibles !");
+            }
         }
     }
 }

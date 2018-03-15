@@ -37,7 +37,7 @@ public class testRepresentation {
         System.out.println("***************************************************");
         Representation laRepresentation = null;
         try {
-            laRepresentation = new Representation(1,"2017-07-11",DaoLieu.selectLieuById("1"),DaoGroupe.selectGroupeById("g001"),"21:45:00","23:00:00",500);
+            laRepresentation = new Representation(1,"2017-07-11",DaoLieu.selectLieuById("1"),DaoGroupe.selectGroupeById("g001"),"21:45:00","23:00:00",500,500);
         } catch (SQLException ex) {
             Logger.getLogger(testRepresentation.class.getName()).log(Level.SEVERE, null, ex);
         }

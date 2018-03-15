@@ -123,9 +123,6 @@ public class CtrlRepresentation implements WindowListener, MouseListener, Action
             int minutes = Integer.parseInt(heureDebut.substring(3,5));
             
             Date dateConcert = new Date(annee-1900, mois, jour,heure,minutes);
-            System.out.println(annee + " " +mois + " " +jour);
-            System.out.println(currentTime);
-            System.out.println(dateConcert);
             if(DaoRepresentation.selectRepresentationParGroupe(idGroupeChoisis).getPlacesDispo()==0 && dateConcert.before(currentTime)){
                 reserv.getjLabel3().setText("Le concert est passé");
             }else if(dateConcert.before(currentTime)){

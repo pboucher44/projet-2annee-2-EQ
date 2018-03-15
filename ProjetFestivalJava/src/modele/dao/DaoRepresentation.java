@@ -30,7 +30,7 @@ public class DaoRepresentation {
         PreparedStatement pstmt;
         Jdbc jdbc = Jdbc.getInstance();
         // préparer la requête
-        String requete = "SELECT id, `date`, Lieu, Groupe, `heuredebut`, `heurefin`, `places_dispo` FROM `Representation`";
+        String requete = "SELECT Representation.id, `date`, Lieu, Groupe, `heuredebut`, `heurefin`,`capaciteAccueil` ,`places_dispo` FROM `Representation` INNER JOIN lieu ON lieu.id=representation.Lieu";
         pstmt = jdbc.getConnexion().prepareStatement(requete);
         rs = pstmt.executeQuery();
         while (rs.next()) {
@@ -42,8 +42,9 @@ public class DaoRepresentation {
             Groupe VraiGroupe = DaoGroupe.selectGroupeById(Groupe);
             String heureDebut = rs.getString("heureDebut");
             String heureFin = rs.getString("heureFin");
+            int placesTot = rs.getInt("capaciteAccueil");
             int placesDispo = rs.getInt("places_dispo");
-            uneRepresentation = new Representation(id, date, VraiLieu,VraiGroupe,heureDebut,heureFin,placesDispo);
+            uneRepresentation = new Representation(id, date, VraiLieu,VraiGroupe,heureDebut,heureFin,placesTot,placesDispo);
             lesRepresentation.add(uneRepresentation);
         }
         return lesRepresentation;
@@ -55,7 +56,7 @@ public class DaoRepresentation {
         PreparedStatement pstmt;
         Jdbc jdbc = Jdbc.getInstance();
         // préparer la requête
-        String requete = "SELECT id, `date`, Lieu, Groupe, `heuredebut`, `heurefin`, `places_dispo` FROM `Representation` WHERE Groupe=\""+idGroupe+"\"";
+        String requete = "SELECT Representation.id, `date`, Lieu, Groupe, `heuredebut`, `heurefin`,`capaciteAccueil` ,`places_dispo` FROM `Representation` INNER JOIN lieu ON lieu.id=representation.Lieu WHERE Groupe=\""+idGroupe+"\"";
         pstmt = jdbc.getConnexion().prepareStatement(requete);
         rs = pstmt.executeQuery();
         if (rs.next()) {
@@ -67,8 +68,9 @@ public class DaoRepresentation {
             Groupe VraiGroupe = DaoGroupe.selectGroupeById(Groupe);
             String heureDebut = rs.getString("heureDebut");
             String heureFin = rs.getString("heureFin");
+            int placeTot = rs.getInt("capaciteAccueil");
             int placesDispo = rs.getInt("places_dispo");
-            uneRepresentation = new Representation(id, date, VraiLieu,VraiGroupe,heureDebut,heureFin,placesDispo);
+            uneRepresentation = new Representation(id, date, VraiLieu,VraiGroupe,heureDebut,heureFin,placeTot,placesDispo);
         }
         return uneRepresentation;
     }
