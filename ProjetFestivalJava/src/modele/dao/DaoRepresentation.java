@@ -30,7 +30,7 @@ public class DaoRepresentation {
         PreparedStatement pstmt;
         Jdbc jdbc = Jdbc.getInstance();
         // préparer la requête
-        String requete = "SELECT Representation.id, `date`, Lieu, Groupe, `heuredebut`, `heurefin`,`capaciteAccueil` ,`places_dispo` FROM `Representation` INNER JOIN lieu ON lieu.id=representation.Lieu";
+        String requete = "SELECT representation.id, `date`, Lieu, Groupe, `heuredebut`, `heurefin`,`capaciteAccueil` ,`places_dispo` FROM `representation` INNER JOIN lieu ON lieu.id=representation.Lieu";
         pstmt = jdbc.getConnexion().prepareStatement(requete);
         rs = pstmt.executeQuery();
         while (rs.next()) {
@@ -56,7 +56,7 @@ public class DaoRepresentation {
         PreparedStatement pstmt;
         Jdbc jdbc = Jdbc.getInstance();
         // préparer la requête
-        String requete = "SELECT Representation.id, `date`, Lieu, Groupe, `heuredebut`, `heurefin`,`capaciteAccueil` ,`places_dispo` FROM `Representation` INNER JOIN lieu ON lieu.id=representation.Lieu WHERE Groupe=\""+idGroupe+"\"";
+        String requete = "SELECT representation.id, `date`, Lieu, Groupe, `heuredebut`, `heurefin`,`capaciteAccueil` ,`places_dispo` FROM `representation` INNER JOIN lieu ON lieu.id=representation.Lieu WHERE Groupe=\""+idGroupe+"\"";
         pstmt = jdbc.getConnexion().prepareStatement(requete);
         rs = pstmt.executeQuery();
         if (rs.next()) {
@@ -79,7 +79,7 @@ public class DaoRepresentation {
         PreparedStatement pstmt;
         Jdbc jdbc = Jdbc.getInstance();
         // préparer la requête
-        String requete = "UPDATE Representation SET places_dispo = places_dispo -"+ nombreVendu +" where groupe='" + id + "'";
+        String requete = "UPDATE representation SET places_dispo = places_dispo -"+ nombreVendu +" where groupe='" + id + "'";
         pstmt = jdbc.getConnexion().prepareStatement(requete);
         pstmt.executeUpdate();
     }

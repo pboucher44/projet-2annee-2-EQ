@@ -24,7 +24,7 @@ public class DaoGroupe {
         PreparedStatement pstmt;
         Jdbc jdbc = Jdbc.getInstance();
         // préparer la requête
-        String requete = "SELECT id,nom,nombrePersonnes,nomPays,hebergement FROM `Groupe` WHERE id=\""+idGroupe + "\"";
+        String requete = "SELECT id,nom,nombrePersonnes,nomPays,hebergement FROM `groupe` WHERE id=\""+idGroupe + "\"";
         pstmt = jdbc.getConnexion().prepareStatement(requete);
         rs = pstmt.executeQuery();
         if (rs.next()) {
@@ -45,7 +45,7 @@ public class DaoGroupe {
         PreparedStatement pstmt;
         Jdbc jdbc = Jdbc.getInstance();
         // préparer la requête
-        String requete = "SELECT id FROM `Groupe` WHERE nom=\""+nomGroupe + "\"";
+        String requete = "SELECT id FROM `groupe` WHERE nom=\""+nomGroupe + "\"";
         pstmt = jdbc.getConnexion().prepareStatement(requete);
         rs = pstmt.executeQuery();
         if (rs.next()) {

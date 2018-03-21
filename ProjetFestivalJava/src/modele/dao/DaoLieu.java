@@ -26,7 +26,7 @@ public class DaoLieu {
         PreparedStatement pstmt;
         Jdbc jdbc = Jdbc.getInstance();
         // préparer la requête
-        String requete = "SELECT * FROM `Lieu` WHERE id=\""+idLieu + "\"";
+        String requete = "SELECT * FROM `lieu` WHERE id=\""+idLieu + "\"";
         pstmt = jdbc.getConnexion().prepareStatement(requete);
         rs = pstmt.executeQuery();
         if (rs.next()) {
