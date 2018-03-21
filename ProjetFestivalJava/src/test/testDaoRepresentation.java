@@ -45,6 +45,44 @@ public class testDaoRepresentation {
             System.out.println("test 1 réussi");
         } catch (SQLException ex) {
             System.out.println("test 1 échoué");
-        }        
+        }    
+        
+        System.out.println("***************************************************");
+        System.out.println("test 2 selectRepresentationParGroupe():");
+        System.out.println("***************************************************");
+        try {
+            Representation laRepresentation = null;
+            laRepresentation = DaoRepresentation.selectRepresentationParGroupe("g019");
+            System.out.println(laRepresentation.toString());
+            
+            System.out.println("test 2 réussi");
+        } catch (SQLException ex) {
+            System.out.println("test 2 échoué");
+        }  
+        
+        System.out.println("***************************************************");
+        System.out.println("test 3 vendrePlace():");
+        System.out.println("***************************************************");
+        try {
+            System.out.println("avant la vente d'une place");
+            
+            Representation laRepresentation = null;
+            
+            laRepresentation = DaoRepresentation.selectRepresentationParGroupe("g019");
+            System.out.println(laRepresentation.getPlacesDispo());
+
+            DaoRepresentation.vendrePlace(1,"g019");
+            
+            System.out.println("après la vente d'une place");
+
+            laRepresentation = DaoRepresentation.selectRepresentationParGroupe("g019");
+            System.out.println(laRepresentation.getPlacesDispo());
+            
+            DaoRepresentation.vendrePlace(-1,"1");
+
+            System.out.println("test 3 réussi");
+        } catch (SQLException ex) {
+            System.out.println("test 3 échoué");
+        }  
     }
 }

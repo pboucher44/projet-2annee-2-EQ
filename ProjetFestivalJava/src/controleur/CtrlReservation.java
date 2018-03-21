@@ -181,7 +181,7 @@ public class CtrlReservation implements WindowListener,MouseListener,ActionListe
             } catch (SQLException ex) {
                 Logger.getLogger(CtrlReservation.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if(nbPlacesDisp-Integer.parseInt(nbPlacesAEnlever)>=0){
+            if(nbPlacesDisp-Integer.parseInt(nbPlacesAEnlever)>=0 && Integer.parseInt(nbPlacesAEnlever)>0){
                 try {
                         DaoRepresentation.vendrePlace(Integer.parseInt(nbPlacesAEnlever) ,DaoGroupe.selectIdGroupeByNom(groupeChoisis));
                         JOptionPane.showMessageDialog(null, "Les places sont bien réservées !");
