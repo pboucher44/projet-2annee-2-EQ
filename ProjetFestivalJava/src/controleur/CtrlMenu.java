@@ -73,7 +73,7 @@ public class CtrlMenu implements WindowListener,ActionListener{
         if(e.getSource().equals(this.menu.getjButton1())){
             ctrlPrincipal.afficherLesRepresentations();
         }else if(e.getSource().equals(this.menu.getjButton2())){
-            ctrlPrincipal.afficherLesReservation();
+            ctrlPrincipal.afficherAuth();
         }
     }
  

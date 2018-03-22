@@ -5,6 +5,7 @@
  */
 package projetfestivaljava;
 
+import controleur.CtrlAuth;
 import controleur.CtrlMenu;
 import controleur.CtrlPrincipal;
 import controleur.CtrlRepresentation;
@@ -19,6 +20,7 @@ import vue.VueMenu;
 import vue.VueRepresentation;
 import vue.VueReservation;
 import java.util.Properties;
+import vue.VueAuthentification;
 
 /**
  *
@@ -62,15 +64,19 @@ public class ProjetFestivalJava {
         try {
             Jdbc.getInstance().connecter();
             CtrlPrincipal leControleurPrincipal = new CtrlPrincipal();
+            
             VueMenu leMenu = new VueMenu();
-            CtrlMenu ctrlLeMenu = new CtrlMenu(leMenu, leControleurPrincipal);
-            VueRepresentation laRepreesentation = new VueRepresentation();
+            CtrlMenu ctrlLeMenu = new CtrlMenu(leMenu, leControleurPrincipal);            
+            VueAuthentification lauth = new VueAuthentification();            
+            CtrlAuth ctrlAuthentification = new CtrlAuth(lauth, leControleurPrincipal);            
+            VueRepresentation laRepreesentation = new VueRepresentation();            
             CtrlRepresentation ctrlLaRepresentation = new CtrlRepresentation(laRepreesentation, leControleurPrincipal);
             VueReservation laReservation = new VueReservation();
             CtrlReservation ctrlLaReservation = new CtrlReservation(laReservation, leControleurPrincipal);
             leControleurPrincipal.setCtrlMenu(ctrlLeMenu);
             leControleurPrincipal.setCtrlRepresentation(ctrlLaRepresentation);
             leControleurPrincipal.setCtrlReservation(ctrlLaReservation);
+            leControleurPrincipal.setCtrlAuth(ctrlAuthentification);
             leMenu.setVisible(true);
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Main - classe JDBC non trouvée");
