@@ -14,34 +14,37 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import vue.VueAuthentification;
+import modele.dao.DaoUtilisateur;
+import modele.metier.Utilisateur;
 
 /**
  *
  * @author tberthome
  */
-public class CtrlAuth implements WindowListener,ActionListener{
+public class CtrlAuth implements WindowListener, ActionListener {
+
     /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */
+     */
     private vue.VueAuthentification auth;
     private CtrlPrincipal ctrlPrincipal;
-    
-    
-    public CtrlAuth (vue.VueAuthentification vue, CtrlPrincipal ctrl){
-        this.auth=vue;
+
+    public CtrlAuth(vue.VueAuthentification vue, CtrlPrincipal ctrl) {
+        this.auth = vue;
         this.auth.addWindowListener((WindowListener) this);
         this.auth.getjButton1().addActionListener((ActionListener) this);
         this.auth.getjButton2().addActionListener((ActionListener) this);
         this.ctrlPrincipal = ctrl;
     }
-    
+
     @Override
     public void windowOpened(WindowEvent e) {
     }
@@ -53,7 +56,7 @@ public class CtrlAuth implements WindowListener,ActionListener{
 
     @Override
     public void windowClosed(WindowEvent e) {
-        
+
     }
 
     @Override
@@ -78,60 +81,40 @@ public class CtrlAuth implements WindowListener,ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource().equals(this.auth.getjButton1())){
+        if (e.getSource().equals(this.auth.getjButton1())) {
+
+            String identifiant = this.auth.getjTextField1().getText();
+            String mdp = this.auth.getjTextField2().getText();
             
-            Properties prop = new Properties();
-            InputStream input = null;
+            if (identifiant.equals("") || mdp.equals("")) {
+                JOptionPane.showMessageDialog(null, "entrez un couple identifiant / mot de passe !");
+            } else {
+                try {
+                    Utilisateur unUtil = DaoUtilisateur.selectUtilById(identifiant);
+                    if(unUtil==null){
+                        JOptionPane.showMessageDialog(null, "Mauvais identifiants !");
+                    }else{
+                        MessageDigest md = MessageDigest.getInstance("MD5");
+                        md.update(mdp.getBytes());
+                        byte[] digest = md.digest();
+                        StringBuffer sb = new StringBuffer();
+                        for (byte b : digest) {
+                            sb.append(String.format("%02x", b & 0xff));
+                        }
 
-            try {
-
-                    input = new FileInputStream("src/config/config.properties");
-
-                    // load a properties file
-                    prop.load(input);
-
-            } catch (IOException ex) {
-                    ex.printStackTrace();
-            } finally {
-                    if (input != null) {
-                            try {
-                                    input.close();
-                            } catch (IOException e1) {
-                                    e1.printStackTrace();
-                            }
+                        if (unUtil.getMdp().equals(sb.toString())) {
+                            ctrlPrincipal.afficherLesReservation();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Mauvais identifiants !");
+                        }
                     }
-            }
-            
-            
-            try {
-                String identifiant = this.auth.getjTextField1().getText();
-                String mdp = this.auth.getjTextField2().getText();
-                
-                MessageDigest md = MessageDigest.getInstance("MD5");
-                md.update(identifiant.getBytes());
-                byte[] digest = md.digest();
-                StringBuffer sb = new StringBuffer();
-                for (byte b : digest) {
-                    sb.append(String.format("%02x", b & 0xff));
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(CtrlAuth.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CtrlAuth.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-                MessageDigest md2 = MessageDigest.getInstance("MD5");
-                md2.update(mdp.getBytes());
-                byte[] digest2 = md2.digest();
-                StringBuffer sb2 = new StringBuffer();
-                for (byte b : digest2) {
-                    sb2.append(String.format("%02x", b & 0xff));
-                }
-                
-                if(prop.getProperty("identifiant").equals(sb.toString()) && prop.getProperty("mdp").equals(sb2.toString())){
-                    ctrlPrincipal.afficherLesReservation();
-                }else {
-                    JOptionPane.showMessageDialog(null, "Mauvais identifiants !");
-                }                
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(CtrlAuth.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else if(e.getSource().equals(this.auth.getjButton2())){
+        } else if (e.getSource().equals(this.auth.getjButton2())) {
             ctrlPrincipal.afficherLeMenu();
         }
     }

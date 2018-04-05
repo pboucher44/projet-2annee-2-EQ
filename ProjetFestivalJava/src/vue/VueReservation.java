@@ -92,7 +92,7 @@ public class VueReservation extends javax.swing.JFrame {
 
         jButton1.setText("Confirmer");
 
-        jButton2.setText("Retour Menu");
+        jButton2.setText("déconnexion");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

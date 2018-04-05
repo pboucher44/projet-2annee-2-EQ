@@ -66,13 +66,17 @@ public class ProjetFestivalJava {
             CtrlPrincipal leControleurPrincipal = new CtrlPrincipal();
             
             VueMenu leMenu = new VueMenu();
-            CtrlMenu ctrlLeMenu = new CtrlMenu(leMenu, leControleurPrincipal);            
+            CtrlMenu ctrlLeMenu = new CtrlMenu(leMenu, leControleurPrincipal);   
+            
             VueAuthentification lauth = new VueAuthentification();            
-            CtrlAuth ctrlAuthentification = new CtrlAuth(lauth, leControleurPrincipal);            
+            CtrlAuth ctrlAuthentification = new CtrlAuth(lauth, leControleurPrincipal);
+            
             VueRepresentation laRepreesentation = new VueRepresentation();            
             CtrlRepresentation ctrlLaRepresentation = new CtrlRepresentation(laRepreesentation, leControleurPrincipal);
+            
             VueReservation laReservation = new VueReservation();
             CtrlReservation ctrlLaReservation = new CtrlReservation(laReservation, leControleurPrincipal);
+            
             leControleurPrincipal.setCtrlMenu(ctrlLeMenu);
             leControleurPrincipal.setCtrlRepresentation(ctrlLaRepresentation);
             leControleurPrincipal.setCtrlReservation(ctrlLaReservation);
