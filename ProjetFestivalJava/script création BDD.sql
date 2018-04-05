@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 05 avr. 2018 à 12:59
+-- Généré le :  jeu. 05 avr. 2018 à 14:23
 -- Version du serveur :  5.7.19
 -- Version de PHP :  5.6.31
 
@@ -19,10 +19,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `festival`
+-- Base de données :  `festival_java_eq2`
 --
-CREATE DATABASE IF NOT EXISTS `festival` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
-USE `festival`;
+CREATE DATABASE IF NOT EXISTS `festival_java_eq2` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+USE `festival_java_eq2`;
 
 -- --------------------------------------------------------
 

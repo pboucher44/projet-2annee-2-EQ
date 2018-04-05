@@ -21,7 +21,7 @@ import modele.metier.Groupe;
 public class testDaoGroupe {
     public static void main(String args[]){
         try {
-            Jdbc.creer("com.mysql.jdbc.Driver", "jdbc:mysql:", "//localhost/", "festival", "root", "joliverie");
+            Jdbc.creer("com.mysql.jdbc.Driver", "jdbc:mysql:", "//localhost/", "festival_java_eq2", "root", "joliverie");
             Jdbc.getInstance().connecter();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(testDaoRepresentation.class.getName()).log(Level.SEVERE, null, ex);

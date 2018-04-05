@@ -10,8 +10,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.SQLException;
+import java.util.Properties;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import jdbc.Jdbc;
+import vue.VueAuthentification;
 import vue.VueMenu;
+import vue.VueRepresentation;
+import vue.VueReservation;
 /**
  *
  * @author Unknow
@@ -31,6 +41,7 @@ public class CtrlMenu implements WindowListener,ActionListener{
         this.menu.addWindowListener(this);
         this.menu.getjButton1().addActionListener(this);
         this.menu.getjButton2().addActionListener(this);
+        this.menu.getjButton3().addActionListener(this);
         this.ctrlPrincipal = ctrl;
     }
     
@@ -74,6 +85,37 @@ public class CtrlMenu implements WindowListener,ActionListener{
             ctrlPrincipal.afficherLesRepresentations();
         }else if(e.getSource().equals(this.menu.getjButton2())){
             ctrlPrincipal.afficherAuth();
+        }else if(e.getSource().equals(this.menu.getjButton3())){
+            Properties prop = new Properties();
+	InputStream input = null;
+
+	try {
+
+		input = new FileInputStream("src/config/config.properties");
+
+		// load a properties file
+		prop.load(input);
+
+	} catch (IOException ex) {
+		ex.printStackTrace();
+	} finally {
+		if (input != null) {
+			try {
+				input.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+        Jdbc.creer(prop.getProperty("jdbcDriver"), prop.getProperty("typeBdd"), prop.getProperty("localisationOnline"), prop.getProperty("database"), prop.getProperty("dbuser"), prop.getProperty("dbpassword"));
+        try {
+            Jdbc.getInstance().connecter();
+            JOptionPane.showMessageDialog(null, "connecté a la base en ligne");
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Main - classe JDBC non trouvée");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Main - échec de connexion");
+        }
         }
     }
  

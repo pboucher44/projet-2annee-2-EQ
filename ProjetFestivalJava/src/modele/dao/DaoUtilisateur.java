@@ -23,7 +23,7 @@ public class DaoUtilisateur {
         PreparedStatement pstmt;
         Jdbc jdbc = Jdbc.getInstance();
         // préparer la requête
-        String requete = "SELECT id,login,motDePasse,nom,prenom FROM `Utilisateur` WHERE login=\""+pseudo + "\"";
+        String requete = "SELECT id,login,motDePasse,nom,prenom FROM `utilisateur` WHERE login=\""+pseudo + "\"";
         pstmt = jdbc.getConnexion().prepareStatement(requete);
         rs = pstmt.executeQuery();
         if (rs.next()) {
