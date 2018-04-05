@@ -90,7 +90,7 @@ public class CtrlAuth implements WindowListener, ActionListener {
                 JOptionPane.showMessageDialog(null, "entrez un couple identifiant / mot de passe !");
             } else {
                 try {
-                    Utilisateur unUtil = DaoUtilisateur.selectUtilById(identifiant);
+                    Utilisateur unUtil = DaoUtilisateur.selectUtilByPseudo(identifiant);
                     if(unUtil==null){
                         JOptionPane.showMessageDialog(null, "Mauvais identifiants !");
                     }else{

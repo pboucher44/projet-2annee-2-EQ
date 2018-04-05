@@ -16,7 +16,7 @@ import modele.metier.Utilisateur;
  * @author Unknow
  */
 public class DaoUtilisateur {
-    public static Utilisateur selectUtilById(String pseudo) throws SQLException {
+    public static Utilisateur selectUtilByPseudo(String pseudo) throws SQLException {
         
         Utilisateur unUtilisateur = null;
         ResultSet rs;

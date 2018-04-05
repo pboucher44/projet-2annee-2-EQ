@@ -24,6 +24,11 @@ public class Utilisateur {
         this.prenom = prenom;
     }
 
+    @Override
+    public String toString() {
+        return "Utilisateur{" + "id=" + id + ", login=" + login + ", mdp=" + mdp + ", nom=" + nom + ", prenom=" + prenom + '}';
+    }
+
     
     
     public int getId() {
