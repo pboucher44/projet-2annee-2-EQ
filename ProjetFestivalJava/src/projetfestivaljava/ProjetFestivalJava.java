@@ -6,6 +6,7 @@
 package projetfestivaljava;
 
 import controleur.CtrlAuth;
+import controleur.CtrlAuthDistant;
 import controleur.CtrlMenu;
 import controleur.CtrlPrincipal;
 import controleur.CtrlRepresentation;
@@ -21,6 +22,7 @@ import vue.VueRepresentation;
 import vue.VueReservation;
 import java.util.Properties;
 import vue.VueAuthentification;
+import vue.VueAuthentificationDistante;
 
 /**
  *
@@ -77,10 +79,14 @@ public class ProjetFestivalJava {
             VueReservation laReservation = new VueReservation();
             CtrlReservation ctrlLaReservation = new CtrlReservation(laReservation, leControleurPrincipal);
             
+            VueAuthentificationDistante vueDist = new VueAuthentificationDistante();            
+            CtrlAuthDistant ctrlAuthentificationDist = new CtrlAuthDistant(vueDist, leControleurPrincipal);
+            
             leControleurPrincipal.setCtrlMenu(ctrlLeMenu);
             leControleurPrincipal.setCtrlRepresentation(ctrlLaRepresentation);
             leControleurPrincipal.setCtrlReservation(ctrlLaReservation);
             leControleurPrincipal.setCtrlAuth(ctrlAuthentification);
+            leControleurPrincipal.setCtrlAuthDist(ctrlAuthentificationDist);
             leMenu.setVisible(true);
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Main - classe JDBC non trouvée");
